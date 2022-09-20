@@ -4,9 +4,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.listen(4000, "https://example-api.vercel.app", () => {
-    console.log(`App listening on http://${config.HOST}:${config.PORT}`);
-});
+app.listen(4000, "https://instructional-guide.vercel.app");
 
 const corsOptions = {
     origin: "https://cta-react.vercel.app",
@@ -21,17 +19,7 @@ app.get('/express_backend', (req, res) => {
     res.status(200).send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' });
 });
 
-app.get('/train/:stopID', (req, res) => {
-    const stpID = req.params.stopID;
-    const currUrl = `http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${key}&stpid=${stpID}&outputType=JSON`;
-    axios.get(currUrl).then(
-        (response) => {
-            console.log(response);
-            // need to send response.data, not just response
-            // can just send data, then parse on the client side
-            res.status(200).send({ data: response.data });
-        }
-        ).catch(err => {
-            console.log(err);
-        });
+app.get('/input/:msg', (req, res) => {
+    const msg = req.params.msg;
+    res.status(200).send({ data: `Your message: ${msg}`});
 });
